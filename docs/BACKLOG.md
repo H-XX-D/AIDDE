@@ -155,6 +155,10 @@ Acceptance:
 - Exchange, queue, and handoff modes are specified.
 - ACP lifecycle rows are specified for Audit.
 - ACP cannot bypass panel permissions or Recall admission.
+- Optional ACP Queue panel has lanes, row anatomy, detail drawer, controls, and
+  follow-current-panel behavior specified.
+- ACP and MCP are documented as different primitives: work routing versus tool
+  capability.
 
 ### 14. MCP integration surface design
 

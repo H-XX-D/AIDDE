@@ -188,6 +188,108 @@ multi-agent work. That panel should show:
 The rule: ACP is visible everywhere it matters, but it should not become another
 default workspace panel until the user turns on advanced multi-agent controls.
 
+## How the ACP panel works
+
+When enabled, the ACP panel is a queue inspector and control surface for agent
+work packets. It is not another chat.
+
+The default view should be lane-based:
+
+- Queued
+- Running
+- Waiting
+- Done
+- Failed
+
+Each request row should be compact enough to scan:
+
+- request id,
+- status,
+- action,
+- source panel,
+- target panel,
+- worker or manager,
+- workspace,
+- permission level,
+- bounded scope,
+- related Memory handles,
+- related Audit row,
+- created/updated time.
+
+The row should read like:
+
+```text
+queued  acp_91f2  panel 4 -> memory-manager  compile  scope: ~/AIDDE/docs  perm: 2
+```
+
+Clicking a row opens a detail drawer with:
+
+- sanitized payload summary,
+- preflight Memory context used,
+- approval gates,
+- response summary,
+- error output if failed,
+- writes proposed through `admit()`,
+- admission receipts,
+- related Recall cells,
+- related Audit rows.
+
+Controls should stay operational:
+
+- pause queue drain,
+- run next,
+- cancel,
+- retry,
+- send result to panel,
+- open source panel,
+- open target panel,
+- copy sanitized ACP JSON,
+- promote successful request to a macro,
+- replay with edited payload when allowed by permissions.
+
+The panel should also support "follow current panel". In that mode, it filters
+to ACP requests where the focused panel is the source, target, or worker. That
+keeps the queue useful even when the user has many panels open.
+
+## Visual behavior
+
+ACP should be visible in the workspace before the full panel exists:
+
+- source panels get a small outgoing work badge,
+- target panels get an incoming work badge,
+- worker panels get a running badge,
+- command rail shows short active work chips,
+- Audit remains the source of truth.
+
+The ACP panel is the expanded view of those same events. It should never invent
+a separate story from Audit.
+
+## ACP versus MCP
+
+ACP and MCP should stay separate in the UI model.
+
+ACP answers:
+
+```text
+Who asked whom to do what, for which panel, under which permission and scope?
+```
+
+MCP answers:
+
+```text
+Which external tools are connected, healthy, permitted, and callable?
+```
+
+That means ACP belongs to agent routing, queue inspection, cancellation, replay,
+and auditability. MCP belongs to Settings/Integrations, tool health, capability
+inspection, and runtime debugging.
+
+If AIDDE eventually has an advanced `Runtime` panel, it can include both ACP and
+MCP tabs, but the primitives stay different:
+
+- ACP tab: requests, workers, queues, handoffs.
+- MCP tab: servers, tools, schemas, auth state, health, failures.
+
 ## Audit integration
 
 ACP needs compact audit rows:
