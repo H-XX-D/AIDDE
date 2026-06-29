@@ -103,6 +103,39 @@ ACP state should be visible on the panels that matter:
 Audit remains the source of truth. The ACP Runtime panel is the expanded view of
 the same events.
 
+## Agent chat panel attach flow
+
+An agent chat panel is the user's primary handle for an ACP-backed agent
+session.
+
+When the user brings an agent into an agent chat panel, AIDDE should:
+
+- load or create the agent profile,
+- create or resume the ACP session,
+- negotiate capabilities,
+- attach the session to the panel id,
+- resolve workspace roots and permission level,
+- discover/import that agent's desktop-app profile if available,
+- populate MCP Runtime with that agent's available MCP servers/tools,
+- populate Skills Runtime with that agent's available skills,
+- show active capability chips in the command rail,
+- create Audit rows for the attach and capability resolution.
+
+The MCP and Skills panels should follow the focused agent chat panel by default.
+If panel 4 is a Claude session, MCP Runtime and Skills Runtime should show
+Claude's available/enabled/disabled capabilities. If focus moves to a Codex
+session, those panels should update to Codex's capability view.
+
+This gives users a direct workflow:
+
+```text
+attach agent -> inspect MCP + Skills -> disable noise -> enable needed tools
+  -> send prompt with visible capability set
+```
+
+Capability changes should be scoped to the selected workspace, panel, and ACP
+session unless the user explicitly applies them globally.
+
 ## Peer-to-peer orchestration
 
 The desired UX is peer-to-peer: one agent can hand bounded work to another agent

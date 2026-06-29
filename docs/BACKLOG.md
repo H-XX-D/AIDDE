@@ -162,6 +162,8 @@ Acceptance:
   graph templates, sanitized traces, and permission policy.
 - ACP Runtime can discover/import agent profiles from installed desktop apps and
   CLIs as disabled candidates.
+- Attaching an agent to a chat panel creates/resumes the ACP session and
+  populates MCP Runtime and Skills Runtime for that focused agent.
 - ACP and MCP are documented as different primitives: client/agent protocol
   versus tool/data-server protocol.
 
@@ -180,6 +182,9 @@ Acceptance:
   allow-deny policy, health snapshots, and sanitized call traces.
 - MCP Runtime can discover/import MCP server definitions from installed desktop
   apps and CLIs as disabled candidates.
+- MCP Runtime can follow the focused agent chat panel and show only that
+  agent/session's available, enabled, disabled, and policy-denied MCP
+  capabilities.
 - Panel permissions can allow or deny MCP-backed tools.
 - Audit rows capture MCP tool calls and failures.
 - MCP and ACP responsibilities are documented as separate.
@@ -200,6 +205,9 @@ Acceptance:
 - Skills Runtime can discover/import skill directories and instruction packs
   from installed desktop apps, CLIs, and editor extensions as untrusted
   candidates.
+- Skills Runtime can follow the focused agent chat panel and show only that
+  agent/session's available, enabled, disabled, pinned, suggested, and
+  policy-denied skills.
 - Command rail shows active/suggested skill chips before send.
 - Skill activation traces explain why a skill matched and which instruction
   files were read.

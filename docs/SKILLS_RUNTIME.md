@@ -126,6 +126,36 @@ Skills should be visible where the user is already looking:
 - Audit rows show skill activation and files read,
 - ACP Runtime peer edges show which skills shaped each agent turn.
 
+## Agent-scoped population
+
+When the user attaches an agent to an agent chat panel, Skills Runtime should
+populate from that agent's available and discovered skill sources.
+
+Sources include:
+
+- skills bundled with the agent adapter,
+- skills discovered from the source desktop app profile,
+- skills installed in AIDDE,
+- project-local skill packs,
+- manually imported disabled/untrusted candidates.
+
+The Skills panel should default to "follow focused agent". In that mode it
+filters to the focused agent chat panel and shows:
+
+- skills available to that agent,
+- skills enabled for that panel/session,
+- disabled candidate skills,
+- pinned skills,
+- suggested skills for the current prompt,
+- policy-denied skills,
+- activation history for that agent/session.
+
+The user should be able to disable skills that add noise and enable or pin them
+when they matter. Those toggles should update the selected ACP session policy,
+the command rail skill chips, and the Audit trail immediately.
+
+This makes instruction scope visible before the prompt is sent.
+
 ## Skill policy
 
 Skill enablement is scoped.

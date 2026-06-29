@@ -101,6 +101,11 @@ AIDDE so every handoff, result, permission, file touch, terminal touch, and
 cancel remains observable. See [ACP_REAL_PROTOCOL.md](ACP_REAL_PROTOCOL.md) and
 [ACP_INTERAGENT.md](ACP_INTERAGENT.md).
 
+Agent chat panels are the primary attachment point for ACP sessions. When an
+agent is attached to a chat panel, AIDDE should populate MCP Runtime and Skills
+Runtime from that agent's discovered/imported capabilities and let those panels
+follow the focused agent by default.
+
 ## MCP integrations
 
 AIDDE should support MCP as both an integration/tool capability surface and a

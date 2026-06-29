@@ -112,6 +112,36 @@ MCP state should also appear where the user is already looking:
 
 The full MCP Runtime panel is the expanded view of those same events.
 
+## Agent-scoped population
+
+When the user attaches an agent to an agent chat panel, MCP Runtime should
+populate from that agent's available and discovered MCP configuration.
+
+Sources include:
+
+- MCP servers passed through ACP session setup,
+- MCP servers discovered from the source desktop app profile,
+- project-local MCP config for the selected workspace,
+- manually added AIDDE MCP servers,
+- previously imported disabled candidates.
+
+The MCP panel should default to "follow focused agent". In that mode it filters
+to the focused agent chat panel and shows:
+
+- servers available to that agent,
+- servers enabled for that panel/session,
+- disabled candidate servers,
+- tools exposed by each server,
+- policy-denied tools,
+- last calls made by that agent,
+- failures for that agent/session.
+
+The user should be able to disable MCP servers they do not need and enable them
+when they do. Those toggles should update the selected ACP session policy, the
+command rail capability chips, and the Audit trail immediately.
+
+This should make tool scope legible before a prompt leaves the command rail.
+
 ## Runtime policy
 
 MCP enable/disable is scoped.
