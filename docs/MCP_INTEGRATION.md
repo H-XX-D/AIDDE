@@ -147,6 +147,11 @@ matching agent tab:
 - `Tab+0` selects agent tab 10,
 - overflow agents remain selectable from the tab list/menu.
 
+By default, focusing an agent chat panel switches MCP Runtime to that agent's
+tab. If MCP Runtime is locked, it keeps the currently selected agent tab and
+does not switch when focus moves to another agent. The lock is local to MCP
+Runtime, so Skills Runtime can still follow focus independently.
+
 The user should be able to disable MCP servers they do not need and enable them
 when they do. Those toggles should update the selected ACP session policy, the
 command rail capability chips, and the Audit trail immediately.

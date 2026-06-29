@@ -161,6 +161,11 @@ matching agent tab:
 - `Tab+0` selects agent tab 10,
 - overflow agents remain selectable from the tab list/menu.
 
+By default, focusing an agent chat panel switches Skills Runtime to that agent's
+tab. If Skills Runtime is locked, it keeps the currently selected agent tab and
+does not switch when focus moves to another agent. The lock is local to Skills
+Runtime, so MCP Runtime can still follow focus independently.
+
 The user should be able to disable skills that add noise and enable or pin them
 when they matter. Those toggles should update the selected ACP session policy,
 the command rail skill chips, and the Audit trail immediately.

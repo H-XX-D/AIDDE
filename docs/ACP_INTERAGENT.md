@@ -149,6 +149,24 @@ This shortcut selects the matching agent tab in ACP Runtime, MCP Runtime, and
 Skills Runtime when those panels are open. Text inputs should keep normal typing
 behavior; the chord belongs to panel/runtime focus and command mode.
 
+## Focus switching and lock mode
+
+Runtime panels should be focus-reactive by default.
+
+When the user focuses an agent chat panel, ACP Runtime, MCP Runtime, and Skills
+Runtime should all switch their selected agent tab to that focused agent. The
+content around the workspace follows the active agent window without requiring a
+manual tab click.
+
+Each runtime panel also needs lock mode. When locked, that panel keeps its
+current agent tab even if the user focuses another agent chat panel. Lock mode is
+per runtime panel, so a user can lock MCP Runtime to one agent while Skills
+Runtime continues to follow focus.
+
+Locked panels should show a visible lock state in the tab strip or title bar.
+Focus changes should still update small availability/status badges, but they
+should not replace the locked panel's tab content.
+
 This gives users a direct workflow:
 
 ```text

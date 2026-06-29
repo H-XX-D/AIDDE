@@ -69,8 +69,25 @@ What this repository contains now:
 - Beta expectations.
 - DD mascot and reward-system direction.
 - Learning-system direction.
+- A runnable React/Vite prototype for agent panels, runtime tabs, lock mode,
+  and the command rail.
 
 Implementation will land here as the rewrite becomes public-ready.
+
+## Development
+
+Run the current prototype locally:
+
+```bash
+npm install
+npm run dev
+```
+
+Check the production bundle:
+
+```bash
+npm run build
+```
 
 ## DD and DeeDee
 

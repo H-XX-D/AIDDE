@@ -106,7 +106,9 @@ agent is attached to a chat panel, AIDDE should populate MCP Runtime and Skills
 Runtime from that agent's discovered/imported capabilities and let those panels
 follow the focused agent by default. Each attached agent also creates a stable
 agent tab in MCP Runtime and Skills Runtime. `hold Tab + number` selects the
-matching agent tab across open runtime panels.
+matching agent tab across open runtime panels. Runtime panels can enter lock
+mode to keep their selected agent tab while other panels continue following
+focus.
 
 ## MCP integrations
 

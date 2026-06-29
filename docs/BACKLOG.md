@@ -168,6 +168,8 @@ Acceptance:
   Skills Runtime.
 - `hold Tab + number` selects the matching agent tab across open runtime
   panels.
+- Focusing an agent chat panel switches ACP/MCP/Skills runtime tabs to that
+  agent unless a runtime panel is locked.
 - ACP and MCP are documented as different primitives: client/agent protocol
   versus tool/data-server protocol.
 
@@ -190,6 +192,8 @@ Acceptance:
   agent/session's available, enabled, disabled, and policy-denied MCP
   capabilities.
 - MCP Runtime shows one tab per attached agent chat panel.
+- MCP Runtime lock mode prevents focus changes from switching its selected
+  agent tab.
 - Panel permissions can allow or deny MCP-backed tools.
 - Audit rows capture MCP tool calls and failures.
 - MCP and ACP responsibilities are documented as separate.
@@ -214,6 +218,8 @@ Acceptance:
   agent/session's available, enabled, disabled, pinned, suggested, and
   policy-denied skills.
 - Skills Runtime shows one tab per attached agent chat panel.
+- Skills Runtime lock mode prevents focus changes from switching its selected
+  agent tab.
 - Command rail shows active/suggested skill chips before send.
 - Skill activation traces explain why a skill matched and which instruction
   files were read.
