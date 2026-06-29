@@ -164,6 +164,10 @@ Acceptance:
   CLIs as disabled candidates.
 - Attaching an agent to a chat panel creates/resumes the ACP session and
   populates MCP Runtime and Skills Runtime for that focused agent.
+- Each attached agent chat panel creates a stable agent tab in MCP Runtime and
+  Skills Runtime.
+- `hold Tab + number` selects the matching agent tab across open runtime
+  panels.
 - ACP and MCP are documented as different primitives: client/agent protocol
   versus tool/data-server protocol.
 
@@ -185,6 +189,7 @@ Acceptance:
 - MCP Runtime can follow the focused agent chat panel and show only that
   agent/session's available, enabled, disabled, and policy-denied MCP
   capabilities.
+- MCP Runtime shows one tab per attached agent chat panel.
 - Panel permissions can allow or deny MCP-backed tools.
 - Audit rows capture MCP tool calls and failures.
 - MCP and ACP responsibilities are documented as separate.
@@ -208,6 +213,7 @@ Acceptance:
 - Skills Runtime can follow the focused agent chat panel and show only that
   agent/session's available, enabled, disabled, pinned, suggested, and
   policy-denied skills.
+- Skills Runtime shows one tab per attached agent chat panel.
 - Command rail shows active/suggested skill chips before send.
 - Skill activation traces explain why a skill matched and which instruction
   files were read.

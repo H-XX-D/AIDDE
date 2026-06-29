@@ -126,6 +126,29 @@ If panel 4 is a Claude session, MCP Runtime and Skills Runtime should show
 Claude's available/enabled/disabled capabilities. If focus moves to a Codex
 session, those panels should update to Codex's capability view.
 
+Every attached agent chat panel should also create a stable agent tab in MCP
+Runtime and Skills Runtime. If the user has five agent chat panels open, those
+runtime panels should show five agent tabs. Closing or detaching an agent removes
+or archives that tab according to the session policy.
+
+Agent tab order should be deterministic:
+
+- active center panels first,
+- then left sidebar agents,
+- then right sidebar agents,
+- each group ordered top-to-bottom, left-to-right.
+
+Keyboard selection should use `hold Tab + number`:
+
+- `Tab+1` selects the first agent tab,
+- `Tab+2` selects the second,
+- through `Tab+9`,
+- `Tab+0` selects the tenth.
+
+This shortcut selects the matching agent tab in ACP Runtime, MCP Runtime, and
+Skills Runtime when those panels are open. Text inputs should keep normal typing
+behavior; the chord belongs to panel/runtime focus and command mode.
+
 This gives users a direct workflow:
 
 ```text

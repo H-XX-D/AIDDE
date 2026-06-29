@@ -139,8 +139,12 @@ Sources include:
 - project-local skill packs,
 - manually imported disabled/untrusted candidates.
 
+The Skills panel should create one tab per attached agent chat panel. If the
+user has five agent chat panels open, Skills Runtime should show five agent
+tabs. Each tab is scoped to that agent's ACP session and panel id.
+
 The Skills panel should default to "follow focused agent". In that mode it
-filters to the focused agent chat panel and shows:
+selects the tab for the focused agent chat panel and shows:
 
 - skills available to that agent,
 - skills enabled for that panel/session,
@@ -149,6 +153,13 @@ filters to the focused agent chat panel and shows:
 - suggested skills for the current prompt,
 - policy-denied skills,
 - activation history for that agent/session.
+
+The user can also select agent tabs directly. `hold Tab + number` selects the
+matching agent tab:
+
+- `Tab+1` through `Tab+9` select agent tabs 1 through 9,
+- `Tab+0` selects agent tab 10,
+- overflow agents remain selectable from the tab list/menu.
 
 The user should be able to disable skills that add noise and enable or pin them
 when they matter. Those toggles should update the selected ACP session policy,

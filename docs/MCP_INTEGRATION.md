@@ -125,8 +125,12 @@ Sources include:
 - manually added AIDDE MCP servers,
 - previously imported disabled candidates.
 
-The MCP panel should default to "follow focused agent". In that mode it filters
-to the focused agent chat panel and shows:
+The MCP panel should create one tab per attached agent chat panel. If the user
+has five agent chat panels open, MCP Runtime should show five agent tabs. Each
+tab is scoped to that agent's ACP session and panel id.
+
+The MCP panel should default to "follow focused agent". In that mode it selects
+the tab for the focused agent chat panel and shows:
 
 - servers available to that agent,
 - servers enabled for that panel/session,
@@ -135,6 +139,13 @@ to the focused agent chat panel and shows:
 - policy-denied tools,
 - last calls made by that agent,
 - failures for that agent/session.
+
+The user can also select agent tabs directly. `hold Tab + number` selects the
+matching agent tab:
+
+- `Tab+1` through `Tab+9` select agent tabs 1 through 9,
+- `Tab+0` selects agent tab 10,
+- overflow agents remain selectable from the tab list/menu.
 
 The user should be able to disable MCP servers they do not need and enable them
 when they do. Those toggles should update the selected ACP session policy, the

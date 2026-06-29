@@ -104,7 +104,9 @@ cancel remains observable. See [ACP_REAL_PROTOCOL.md](ACP_REAL_PROTOCOL.md) and
 Agent chat panels are the primary attachment point for ACP sessions. When an
 agent is attached to a chat panel, AIDDE should populate MCP Runtime and Skills
 Runtime from that agent's discovered/imported capabilities and let those panels
-follow the focused agent by default.
+follow the focused agent by default. Each attached agent also creates a stable
+agent tab in MCP Runtime and Skills Runtime. `hold Tab + number` selects the
+matching agent tab across open runtime panels.
 
 ## MCP integrations
 
