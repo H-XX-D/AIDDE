@@ -177,6 +177,41 @@ Peer-to-peer does not mean invisible.
 If direct peer transports are ever enabled, they must mirror this same trace
 back to AIDDE before they are considered trusted.
 
+## Import and export
+
+ACP Runtime needs import/export for reproducible agent setups and peer graphs.
+Use the shared rules in [RUNTIME_IMPORT_EXPORT.md](RUNTIME_IMPORT_EXPORT.md).
+
+ACP export should include:
+
+- agent adapter profiles,
+- negotiated capability snapshots,
+- session templates,
+- peer graph templates,
+- permission policy,
+- prompt/turn traces,
+- sanitized JSON-RPC envelopes,
+- stop reasons,
+- related Audit row ids,
+- related Memory handles.
+
+ACP export must not include:
+
+- live process ids as replayable state,
+- raw secrets,
+- unsanitized terminal output,
+- unsanitized file contents,
+- hidden peer channels.
+
+ACP import should support:
+
+- dry-run compatibility checks,
+- importing agent profiles as disabled,
+- importing peer graphs as templates,
+- importing traces as read-only evidence,
+- mapping old panel ids to current panels,
+- refusing unknown extensions unless the user explicitly allows them.
+
 ## MCP boundary
 
 MCP stays separate.

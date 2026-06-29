@@ -32,7 +32,8 @@ This is a public rewrite direction, not a frozen implementation.
    - tool-call action events,
    - real ACP client integration,
    - supervised peer-to-peer agent graph,
-   - MCP tool/server registry.
+   - MCP tool/server registry,
+   - Skills runtime registry.
 
 5. Memory layer
    - Memory panel for day-to-day context,
@@ -71,7 +72,8 @@ A panel is a rectangle with:
 - optional memory context.
 
 The same primitive should power editor, chat, terminal, explorer, Memory,
-Recall, Audit, Browser, SSH, Todo, Console, and future tools.
+Recall, Audit, Browser, SSH, Todo, Console, ACP Runtime, MCP Runtime, Skills
+Runtime, and future tools.
 
 ## Memory split
 
@@ -105,3 +107,17 @@ AIDDE should support MCP as both an integration/tool capability surface and a
 live runtime monitor. Settings owns server configuration; the MCP Runtime panel
 owns live health, calls, failures, and enable/disable controls for servers,
 tools, panels, and sessions. See [MCP_INTEGRATION.md](MCP_INTEGRATION.md).
+
+## Skills runtime
+
+AIDDE should support Skills as visible instruction packs and workflow playbooks,
+not invisible prompt magic. The Skills Runtime panel owns installed/enabled
+skills, activation traces, per-workspace/panel/session policy, pinned skills,
+conflicts, and Audit links. See [SKILLS_RUNTIME.md](SKILLS_RUNTIME.md).
+
+## Runtime import/export
+
+ACP Runtime, MCP Runtime, and Skills Runtime all need import/export. Shared
+rules live in [RUNTIME_IMPORT_EXPORT.md](RUNTIME_IMPORT_EXPORT.md): dry runs,
+diff preview, scoped imports, conflict detection, redaction, no raw secrets,
+rollback, and Audit rows.

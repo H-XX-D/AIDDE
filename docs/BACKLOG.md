@@ -158,6 +158,8 @@ Acceptance:
 - The advanced panel is framed as `ACP Runtime`, not a substitute protocol.
 - Interagent work is framed as supervised peer-to-peer across real ACP sessions.
 - ACP Runtime includes a peer graph view for session-to-session edges.
+- ACP Runtime supports import/export of agent profiles, session templates, peer
+  graph templates, sanitized traces, and permission policy.
 - ACP and MCP are documented as different primitives: client/agent protocol
   versus tool/data-server protocol.
 
@@ -172,6 +174,42 @@ Acceptance:
   permissions.
 - Users can enable/disable MCP servers and tools.
 - Users can enable/disable MCP access for a panel or ACP session.
+- MCP Runtime supports import/export of server definitions, tool schemas,
+  allow-deny policy, health snapshots, and sanitized call traces.
 - Panel permissions can allow or deny MCP-backed tools.
 - Audit rows capture MCP tool calls and failures.
 - MCP and ACP responsibilities are documented as separate.
+
+### 15. Skills runtime surface design
+
+Expose Skills as instruction packs and workflow playbooks that can be monitored,
+enabled, disabled, pinned, and audited.
+
+Acceptance:
+
+- Skills Runtime panel shows installed, enabled, suggested, active, pinned,
+  conflicting, and failed skills.
+- Users can enable/disable skills globally, per workspace, per panel, per ACP
+  session, and per prompt.
+- Skills Runtime supports import/export of skill packs, skill policy, pins,
+  hashes, and activation traces.
+- Command rail shows active/suggested skill chips before send.
+- Skill activation traces explain why a skill matched and which instruction
+  files were read.
+- Audit rows capture skill activation, policy blocks, and skill file reads.
+- Skills, MCP, ACP, and Memory are documented as separate turn inputs.
+
+### 16. Runtime import/export contract
+
+Define shared import/export rules for ACP Runtime, MCP Runtime, and Skills
+Runtime.
+
+Acceptance:
+
+- Export manifests include schema id, app version, scope, redaction level,
+  runtime surfaces, hashes, and compatibility notes.
+- Import supports dry-run, diff preview, conflict detection, scoped target,
+  disabled-by-default mode, rollback, and Audit rows.
+- Raw secrets are never exported.
+- ACP, MCP, and Skills each define their own exportable payloads and forbidden
+  payloads.

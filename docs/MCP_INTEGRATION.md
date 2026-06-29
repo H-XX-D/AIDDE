@@ -129,6 +129,43 @@ should be visibly disabled in the command rail and should not appear as callable
 to agents unless the agent needs to see a policy-denied capability for
 explanation/debugging.
 
+## Import and export
+
+MCP Runtime needs import/export for server setups, tool policy, and debugging.
+Use the shared rules in [RUNTIME_IMPORT_EXPORT.md](RUNTIME_IMPORT_EXPORT.md).
+
+MCP export should include:
+
+- server definitions,
+- transport type,
+- startup policy,
+- enabled/disabled state,
+- tool/resource/prompt schemas,
+- panel/session allow-deny policy,
+- health snapshot,
+- sanitized call traces,
+- last error summaries,
+- related Audit row ids.
+
+MCP export must not include:
+
+- raw env values,
+- API keys,
+- bearer tokens,
+- passwords,
+- raw secret-bearing command lines,
+- unsanitized tool outputs.
+
+MCP import should support:
+
+- importing servers disabled by default,
+- unresolved secret placeholders,
+- dry-run schema diff,
+- tool allow-deny policy preview,
+- per-workspace import,
+- per-panel import,
+- rollback after apply.
+
 ## Difference from ACP
 
 ACP and MCP solve different problems:
