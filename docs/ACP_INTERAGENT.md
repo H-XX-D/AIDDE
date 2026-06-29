@@ -103,11 +103,12 @@ ACP state should be visible on the panels that matter:
 Audit remains the source of truth. The ACP Runtime panel is the expanded view of
 the same events.
 
-## Interagent orchestration
+## Peer-to-peer orchestration
 
-Real ACP does not define direct agent-to-agent messaging.
+The desired UX is peer-to-peer: one agent can hand bounded work to another agent
+and the user can see the edge between them.
 
-AIDDE can still support interagent work by acting as the orchestrating client:
+AIDDE should implement this as a supervised peer graph:
 
 ```text
 session A result or request
@@ -118,7 +119,63 @@ session A result or request
   -> result routes back to the selected panel
 ```
 
-This makes cross-agent work auditable and keeps panel permissions enforceable.
+This makes agents behave like peers while keeping the traffic observable and
+cancellable. AIDDE should not hide the handoff inside either chat transcript.
+
+## Peer graph view
+
+The ACP Runtime panel should have a peer graph mode.
+
+Nodes:
+
+- ACP sessions,
+- agent processes,
+- panels,
+- MCP-backed tool servers when relevant,
+- Memory/Recall context packets.
+
+Edges:
+
+- prompt handoff,
+- review request,
+- test request,
+- file inspection request,
+- Memory compile/search request,
+- result return,
+- cancellation,
+- permission decision.
+
+Each edge should show:
+
+- source session,
+- target session,
+- source panel,
+- target panel,
+- action,
+- scope,
+- permission level,
+- state,
+- token/usage summary when available,
+- related Audit rows,
+- related Memory handles.
+
+Clicking an edge opens the full protocol trace: prompt sent, updates streamed,
+tool calls, permissions, files, terminals, result, and stop reason.
+
+## Monitoring rules
+
+Peer-to-peer does not mean invisible.
+
+- Every peer edge gets a correlation id.
+- Every edge is visible in Audit.
+- Every edge can be cancelled if still active.
+- Every permission request resolves through AIDDE.
+- Every file or terminal touch is still owned by AIDDE.
+- Memory preflight and memory-in-use are attached to the edge.
+- Results route to an explicit panel or session.
+
+If direct peer transports are ever enabled, they must mirror this same trace
+back to AIDDE before they are considered trusted.
 
 ## MCP boundary
 

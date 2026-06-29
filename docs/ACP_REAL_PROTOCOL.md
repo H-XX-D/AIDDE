@@ -290,11 +290,13 @@ Each ACP-backed agent panel should store:
 - related Audit rows,
 - related Memory preflight ids.
 
-## Interagent work
+## Peer orchestration and monitoring
 
-Real ACP does not directly define agent-to-agent messaging.
+The product goal is peer-to-peer agent work: Claude, Codex, Gemini, local tools,
+and future agents should be able to hand bounded work to each other while the
+user sees what is happening.
 
-For AIDDE, interagent work should be mediated by the client:
+The Beta implementation should be client-mediated peer-to-peer:
 
 ```text
 agent/session A produces a bounded request
@@ -302,7 +304,26 @@ agent/session A produces a bounded request
   -> AIDDE chooses or asks for target agent/session B
   -> AIDDE sends session/prompt to B with explicit context
   -> B streams real ACP updates back
+  -> AIDDE routes the result back to A, the user, or a target panel
 ```
+
+That gives agents peer behavior without invisible side channels. AIDDE is the
+switchboard, recorder, permission gate, and cancel point.
+
+Each peer exchange should get a stable correlation envelope in ACP `_meta`:
+
+- `aidde.peerGraphId`
+- `aidde.peerEdgeId`
+- `aidde.originSessionId`
+- `aidde.targetSessionId`
+- `aidde.sourcePanelId`
+- `aidde.targetPanelId`
+- `aidde.memoryPreflightId`
+- `aidde.auditTraceId`
+- W3C `traceparent` / `tracestate` when available.
+
+The user-facing model is peer-to-peer. The implementation model is supervised
+sessions.
 
 If AIDDE needs custom routing, use ACP extensions only after capability
 advertisement:
@@ -312,6 +333,11 @@ advertisement:
 - unrecognized custom requests must fail cleanly with method-not-found.
 
 Do not invent root-level fields in ACP objects.
+
+If a future agent pair supports a true direct peer transport, AIDDE can allow it
+only if both peers advertise an AIDDE peer-monitoring extension and mirror the
+same events back into Audit. No hidden direct peer channel should be trusted for
+Beta.
 
 ## Beta implementation slice
 
@@ -330,6 +356,7 @@ The first real integration should prove:
 11. implement basic terminal create/output/wait/kill,
 12. wire stop to `session/cancel`,
 13. write every protocol event to Audit,
-14. expose session/capability state in an advanced ACP Runtime panel.
+14. expose session/capability state in an advanced ACP Runtime panel,
+15. show peer exchanges as a graph of session-to-session edges.
 
 That is enough to make AIDDE a real ACP client.

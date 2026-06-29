@@ -156,7 +156,8 @@ Acceptance:
   turns, updates, tool calls, permissions, file methods, terminal methods, MCP
   handoff, cancellation, and extension rules are specified.
 - The advanced panel is framed as `ACP Runtime`, not a substitute protocol.
-- Interagent work is mediated by AIDDE across real ACP sessions.
+- Interagent work is framed as supervised peer-to-peer across real ACP sessions.
+- ACP Runtime includes a peer graph view for session-to-session edges.
 - ACP and MCP are documented as different primitives: client/agent protocol
   versus tool/data-server protocol.
 

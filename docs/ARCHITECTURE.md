@@ -31,7 +31,7 @@ This is a public rewrite direction, not a frozen implementation.
    - stream events,
    - tool-call action events,
    - real ACP client integration,
-   - AIDDE-mediated interagent orchestration,
+   - supervised peer-to-peer agent graph,
    - MCP tool/server registry.
 
 5. Memory layer
@@ -94,8 +94,9 @@ The first milestone is one ACP agent over stdio with initialization, session
 setup, prompt turns, streamed updates, permission requests, file access,
 terminal access, cancellation, and Audit visibility.
 
-Interagent work is an AIDDE orchestration layer across real ACP sessions, not
-the protocol itself. See [ACP_REAL_PROTOCOL.md](ACP_REAL_PROTOCOL.md) and
+Interagent work should feel peer-to-peer to the user, but it is supervised by
+AIDDE so every handoff, result, permission, file touch, terminal touch, and
+cancel remains observable. See [ACP_REAL_PROTOCOL.md](ACP_REAL_PROTOCOL.md) and
 [ACP_INTERAGENT.md](ACP_INTERAGENT.md).
 
 ## MCP integrations
