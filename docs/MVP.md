@@ -35,7 +35,10 @@ takes, and keep the work organized in panels that can be targeted.
    - one default agent panel,
    - stable per-panel session identity,
    - visible run state,
-   - cancel path.
+   - cancel path,
+   - first ACP request shape for bounded interagent work,
+   - MCP tool availability comes through permissions/settings, not a default
+     protocol panel.
 
 5. Memory v0
    - candidate context appears before send,
@@ -89,6 +92,8 @@ These can come later. The first beta should make the core shape undeniable.
 - The command rail is the obvious place to type.
 - Memory preflight is visible before the model turn is committed.
 - The Audit panel shows what happened without requiring chat transcript reading.
+- A bounded ACP request can be shown with source, target, status, and audit row.
+- MCP calls can be audited and permissioned without requiring a default MCP panel.
 - DD state is legible.
 - At least one learning mission is useful without leaving the app.
 - At least one cosmetic unlock can be earned.

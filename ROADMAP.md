@@ -59,6 +59,10 @@ The first focused target is [Beta 0.1](docs/MVP.md).
 
 - Add per-panel permissions.
 - Add visible scope and workspace boundaries.
+- Add ACP as the bounded interagent work protocol for queued/exchange/handoff
+  tasks between panel-bound agents and managers.
+- Add MCP integration as a settings/runtime capability surface, not a default
+  workspace panel.
 - Add blast-radius awareness from Lattice-style structural analysis.
 - Add git/bodyguard checks for etiquette, risky edits, secrets, and broken
   states.

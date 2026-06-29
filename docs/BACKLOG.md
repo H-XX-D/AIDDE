@@ -143,3 +143,27 @@ Acceptance:
 - Shows current mission, constraints, and next action.
 - Does not duplicate chat prose.
 - Can reference Memory/Audit/Panel targets.
+
+### 13. ACP interagent routing design
+
+Use ACP as AIDDE's bounded interagent work protocol.
+
+Acceptance:
+
+- Request metadata includes source panel, target panel, workspace, permission,
+  scope, and related Memory/Audit handles.
+- Exchange, queue, and handoff modes are specified.
+- ACP lifecycle rows are specified for Audit.
+- ACP cannot bypass panel permissions or Recall admission.
+
+### 14. MCP integration surface design
+
+Expose MCP as tool capability and integration state, not a default panel.
+
+Acceptance:
+
+- Settings/Integrations shows connected MCP servers and health.
+- Panel permissions can allow or deny MCP-backed tools.
+- Audit rows capture MCP tool calls and failures.
+- An optional advanced Runtime/Integrations panel is specified for debugging.
+- MCP and ACP responsibilities are documented as separate.

@@ -29,7 +29,9 @@ This is a public rewrite direction, not a frozen implementation.
    - Claude,
    - future model/provider adapters,
    - stream events,
-   - tool-call action events.
+   - tool-call action events,
+   - ACP interagent request routing,
+   - MCP tool/server registry.
 
 5. Memory layer
    - Memory panel for day-to-day context,
@@ -42,7 +44,8 @@ This is a public rewrite direction, not a frozen implementation.
    - Audit panel,
    - condensed model actions,
    - file/git/test/terminal ledger,
-   - expandable sanitized details.
+   - expandable sanitized details,
+   - ACP request lifecycle rows.
 
 7. Learning and reward layer
    - start page,
@@ -82,3 +85,15 @@ This split matters:
 
 The Recall panel's MAL reader is intentionally narrow. See
 [RECALL_PANEL_MAL_READER.md](RECALL_PANEL_MAL_READER.md).
+
+## ACP interagent work
+
+AIDDE should use ACP for bounded agent-to-agent work where a request has source,
+target, action, scope, status, and audit trail. ACP is not the chat surface and
+not a way to bypass permissions. See [ACP_INTERAGENT.md](ACP_INTERAGENT.md).
+
+## MCP integrations
+
+AIDDE should support MCP as an integration/tool capability surface. MCP does not
+need a default workspace panel; it belongs first in Settings/Integrations,
+permissions, and Audit. See [MCP_INTEGRATION.md](MCP_INTEGRATION.md).

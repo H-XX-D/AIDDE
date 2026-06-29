@@ -65,3 +65,31 @@ Reason:
 - the reader can stay small and debuggable,
 - all writes still route through `admit()`,
 - replay/verify round-trip tests give a real correctness property.
+
+## 0007: ACP is AIDDE's bounded interagent work protocol
+
+AIDDE can use ACP for interagent work, but only as a bounded request protocol
+with source, target, action, scope, status, permissions, and audit visibility.
+
+Reason:
+
+- Recall already has ACP as a durable agent communication protocol,
+- panel-bound agents need a structured way to hand off work,
+- queue/exchange/handoff modes map cleanly to AIDDE workflows,
+- unbounded invisible agent chat would violate the product's safety and
+  observability principles.
+
+## 0008: ACP and MCP are not default workspace panels
+
+ACP may get an optional advanced queue/inspector panel. MCP may get an optional
+runtime/integrations inspector. Neither should be a default workspace panel in
+Beta 0.1.
+
+Reason:
+
+- ACP is work coordination, not a primary work surface,
+- MCP is tool capability discovery/invocation, not a primary work surface,
+- default panels should remain focused on user work: editor, chat, Memory,
+  Audit, explorer, terminal, learning,
+- protocol details still need visibility through Settings, permissions, Audit,
+  and optional advanced diagnostics.
