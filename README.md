@@ -118,7 +118,12 @@ identity. It makes learning, shipping, and exploration tangible.
 
 ## Roadmap
 
-See [ROADMAP.md](ROADMAP.md).
+Start here:
+
+- [ROADMAP.md](ROADMAP.md) for the long arc.
+- [docs/MVP.md](docs/MVP.md) for the Beta 0.1 vertical slice.
+- [docs/BACKLOG.md](docs/BACKLOG.md) for the first task breakdown.
+- [docs/DECISIONS.md](docs/DECISIONS.md) for current architecture/product decisions.
 
 ## License
 
@@ -128,4 +133,3 @@ This repository is licensed under the Apache License, Version 2.0. See
 Apache-2.0 covers the code and documentation in this repository. The DD/DeeDee
 names and mascot identity may also function as project branding; see
 [NOTICE.md](NOTICE.md).
-

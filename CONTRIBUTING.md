@@ -5,6 +5,7 @@ surface area for its own sake.
 
 Good contributions:
 
+- map to [docs/MVP.md](docs/MVP.md) or [docs/BACKLOG.md](docs/BACKLOG.md),
 - improve the panel primitive,
 - clarify agent observability,
 - improve memory/preflight UX,
@@ -25,4 +26,3 @@ Avoid:
 
 Implementation guidelines will become stricter once the rewrite source lands.
 For now, design docs and small scaffolding contributions are welcome.
-

@@ -3,6 +3,8 @@
 This roadmap describes the public rewrite direction. The prototype work happens
 in AIDE; the clean architecture lands here as AIDDE.
 
+The first focused target is [Beta 0.1](docs/MVP.md).
+
 ## Phase 0: public base
 
 - Publish the AIDDE concept and Apache-2.0 repo.
@@ -108,4 +110,3 @@ in AIDE; the clean architecture lands here as AIDDE.
   - basic editor/explorer/terminal,
   - learning start page.
 - Keep advanced features behind settings until the core workflow is stable.
-
