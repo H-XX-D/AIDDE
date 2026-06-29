@@ -30,7 +30,8 @@ This is a public rewrite direction, not a frozen implementation.
    - future model/provider adapters,
    - stream events,
    - tool-call action events,
-   - ACP interagent request routing,
+   - real ACP client integration,
+   - AIDDE-mediated interagent orchestration,
    - MCP tool/server registry.
 
 5. Memory layer
@@ -45,7 +46,7 @@ This is a public rewrite direction, not a frozen implementation.
    - condensed model actions,
    - file/git/test/terminal ledger,
    - expandable sanitized details,
-   - ACP request lifecycle rows.
+   - ACP JSON-RPC lifecycle rows.
 
 7. Learning and reward layer
    - start page,
@@ -86,11 +87,16 @@ This split matters:
 The Recall panel's MAL reader is intentionally narrow. See
 [RECALL_PANEL_MAL_READER.md](RECALL_PANEL_MAL_READER.md).
 
-## ACP interagent work
+## ACP runtime
 
-AIDDE should use ACP for bounded agent-to-agent work where a request has source,
-target, action, scope, status, and audit trail. ACP is not the chat surface and
-not a way to bypass permissions. See [ACP_INTERAGENT.md](ACP_INTERAGENT.md).
+AIDDE should integrate the real Agent Client Protocol as a client/editor/runtime.
+The first milestone is one ACP agent over stdio with initialization, session
+setup, prompt turns, streamed updates, permission requests, file access,
+terminal access, cancellation, and Audit visibility.
+
+Interagent work is an AIDDE orchestration layer across real ACP sessions, not
+the protocol itself. See [ACP_REAL_PROTOCOL.md](ACP_REAL_PROTOCOL.md) and
+[ACP_INTERAGENT.md](ACP_INTERAGENT.md).
 
 ## MCP integrations
 

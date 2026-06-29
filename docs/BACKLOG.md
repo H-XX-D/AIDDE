@@ -146,19 +146,19 @@ Acceptance:
 
 ### 13. ACP interagent routing design
 
-Use ACP as AIDDE's bounded interagent work protocol.
+Use the real Agent Client Protocol as AIDDE's client/agent integration boundary.
 
 Acceptance:
 
-- Request metadata includes source panel, target panel, workspace, permission,
-  scope, and related Memory/Audit handles.
-- Exchange, queue, and handoff modes are specified.
-- ACP lifecycle rows are specified for Audit.
-- ACP cannot bypass panel permissions or Recall admission.
-- Optional ACP Queue panel has lanes, row anatomy, detail drawer, controls, and
-  follow-current-panel behavior specified.
-- ACP and MCP are documented as different primitives: work routing versus tool
-  capability.
+- `docs/ACP_REAL_PROTOCOL.md` identifies AIDDE as the ACP client and agents as
+  ACP agents.
+- Stdio transport, JSON-RPC lifecycle, initialization, session setup, prompt
+  turns, updates, tool calls, permissions, file methods, terminal methods, MCP
+  handoff, cancellation, and extension rules are specified.
+- The advanced panel is framed as `ACP Runtime`, not a substitute protocol.
+- Interagent work is mediated by AIDDE across real ACP sessions.
+- ACP and MCP are documented as different primitives: client/agent protocol
+  versus tool/data-server protocol.
 
 ### 14. MCP integration surface design
 

@@ -1,321 +1,151 @@
-# ACP Interagent Work Contract
+# ACP Runtime and Interagent Orchestration
 
-Yes: AIDDE should use ACP for interagent work.
+AIDDE should integrate the real Agent Client Protocol first.
 
-But ACP should be a bounded work protocol, not freeform agent chat. AIDDE should
-use it when one agent needs another agent or manager to perform a scoped runtime
-task and return an auditable result.
+The old framing of ACP as a private AIDDE/Recall request queue is not the
+implementation contract. The implementation contract is documented in
+[ACP_REAL_PROTOCOL.md](ACP_REAL_PROTOCOL.md).
 
-## What ACP is
+This file now describes the AIDDE layer on top of real ACP.
 
-ACP is the Agent Communication Protocol already present in Recall.
+## Product position
 
-Recall's current ACP surface is:
-
-- durable request queue,
-- request status,
-- request list/show,
-- queued processing,
-- one-shot exchange,
-- bounded actions such as status, search, compile, write, maintenance, tick,
-  daemon run, and operate once.
-
-The existing request shape is:
-
-```ts
-interface AcpRequest {
-  id: string;
-  channel: string;
-  fromAgent: string;
-  toAgent: string;
-  action: AcpRequestAction;
-  payload: Record<string, unknown>;
-  status: "queued" | "processing" | "completed" | "failed";
-  response: Record<string, unknown> | null;
-  error: string | null;
-  createdAt: string;
-  updatedAt: string;
-  processedAt: string | null;
-}
-```
-
-AIDDE should reuse that shape and add AIDDE-specific metadata around it, not
-replace it.
-
-## What AIDDE adds
-
-AIDDE should wrap ACP requests with:
-
-- source panel id,
-- target panel id,
-- workspace id,
-- permission level,
-- requested capability,
-- visible scope,
-- related Memory handles,
-- related Audit row ids,
-- optional user approval requirement.
-
-That makes ACP legible in the UI:
-
-- Memory shows what context the request can use.
-- Audit shows the request, action, result, failure, and writes.
-- Panels show where the request came from and where the result lands.
-- Permissions determine whether the request can run now, queue, or require
-  approval.
-
-## When to use ACP
-
-Use ACP for:
-
-- asking a graph/memory manager to compile or search context,
-- asking a worker agent to inspect a bounded file set,
-- asking a test agent to run or summarize a specific check,
-- asking a review agent to inspect a diff,
-- queuing background maintenance,
-- routing a bounded task to a panel-bound agent,
-- handing off a task while preserving status and auditability.
-
-Do not use ACP for:
-
-- ordinary chat between the user and an assistant,
-- unbounded autonomous execution,
-- bypassing panel permissions,
-- hiding tool calls from Audit,
-- sending secrets through normal memory,
-- writing directly to Recall without admission.
-
-## AIDDE flow
+ACP gives AIDDE the standard client/agent boundary:
 
 ```text
-user or agent intent
-  -> panel target + permission check
-  -> Memory context packet
-  -> ACP request
-  -> queue or exchange
-  -> worker/manager action
-  -> admission for writes
-  -> Audit row
-  -> panel result
+AIDDE client/editor/runtime <-> ACP agent process
 ```
 
-## Modes
+That is the important integration. Once that works, AIDDE can orchestrate
+multiple ACP sessions, but it should not confuse orchestration with the protocol
+itself.
 
-### Exchange
+## What the ACP panel is
 
-Use exchange for short, interactive work where the user is waiting.
+The panel should be named `ACP Runtime` or `Agent Runtime`, not `ACP Queue`.
 
-Examples:
+It is an advanced inspector for real ACP state:
 
-- "compile memory for this prompt",
-- "search Recall for this project term",
-- "summarize the current diff risk".
+- agent connections,
+- negotiated capabilities,
+- sessions,
+- prompt turns,
+- streamed updates,
+- tool calls,
+- permission requests,
+- file requests,
+- terminal requests,
+- cancellations,
+- errors,
+- raw JSON-RPC messages.
 
-### Queue
+The default workspace should not require this panel. Normal users should see ACP
+through chat panels, command rail status, Audit rows, panel badges, and
+permission prompts.
 
-Use queue for work that can run in the background.
+## Runtime lanes
 
-Examples:
+When visible, the panel can group live state by lane:
 
-- maintenance,
-- long review,
-- test sweep,
-- workspace indexing,
-- scheduled Recall tick/daemon work.
+- Connections
+- Sessions
+- Turns
+- Tool Calls
+- Permissions
+- Terminals
+- Errors
 
-### Handoff
+This is more accurate than a generic queue because ACP is session-oriented and
+bidirectional.
 
-Use handoff when an agent owns follow-up work and another agent should resume it
-later with status, scope, and evidence.
+## Row anatomy
 
-Handoff should create both:
-
-- an ACP request,
-- a Recall handoff/checkpoint cell when the result is durable.
-
-## Safety rules
-
-- Every ACP request has a source and target.
-- Every request has a bounded action.
-- Every request has visible scope.
-- Every request is visible in Audit.
-- Any write goes through `admit()`.
-- Background ACP work cannot silently raise its own permission level.
-- Queue draining is rate-limited and cancellable.
-- Failed requests stay inspectable.
-
-## Panel integration
-
-Panels can participate in ACP in three ways:
-
-1. Source panel
-   - where the request was made.
-2. Target panel
-   - where the result should render.
-3. Worker panel
-   - the agent/session responsible for processing.
-
-This gives AIDDE a clean way to say:
+Each visible row should be compact:
 
 ```text
-agent in panel 3 asks memory-manager to compile context for panel 1
+running  sess_abc123  panel 4  session/prompt  turn req 17  perm 2
 ```
 
-without relying on screen scraping or invisible global state.
+Rows should show:
 
-## Does ACP need its own panel?
-
-Not as a default Beta 0.1 panel.
-
-ACP should first appear through:
-
-- Audit rows,
-- source/target panel badges,
-- Memory/Recall status when the request is memory-related,
-- command rail status for active queued/exchange work.
-
-An advanced `ACP Queue` or `Agent Queue` panel is useful later for users running
-multi-agent work. That panel should show:
-
-- queued requests,
-- processing requests,
-- completed/failed requests,
-- source and target panel ids,
-- action and bounded scope,
-- cancel/retry controls,
-- links to Audit rows and Recall cells.
-
-The rule: ACP is visible everywhere it matters, but it should not become another
-default workspace panel until the user turns on advanced multi-agent controls.
-
-## How the ACP panel works
-
-When enabled, the ACP panel is a queue inspector and control surface for agent
-work packets. It is not another chat.
-
-The default view should be lane-based:
-
-- Queued
-- Running
-- Waiting
-- Done
-- Failed
-
-Each request row should be compact enough to scan:
-
-- request id,
 - status,
-- action,
-- source panel,
-- target panel,
-- worker or manager,
-- workspace,
+- session id,
+- panel id,
+- JSON-RPC method or update type,
+- request id when present,
+- agent name,
 - permission level,
-- bounded scope,
-- related Memory handles,
 - related Audit row,
-- created/updated time.
+- related Memory preflight id,
+- timestamp.
 
-The row should read like:
+The detail drawer should show:
 
-```text
-queued  acp_91f2  panel 4 -> memory-manager  compile  scope: ~/AIDDE/docs  perm: 2
-```
+- sanitized JSON-RPC envelope,
+- params/result/error,
+- capability gates,
+- source and target panel,
+- file paths or terminal ids touched,
+- cancellation state,
+- related Audit rows,
+- related Recall/Memory handles.
 
-Clicking a row opens a detail drawer with:
+## Panel badges
 
-- sanitized payload summary,
-- preflight Memory context used,
-- approval gates,
-- response summary,
-- error output if failed,
-- writes proposed through `admit()`,
-- admission receipts,
-- related Recall cells,
-- related Audit rows.
+ACP state should be visible on the panels that matter:
 
-Controls should stay operational:
+- source chat panel shows active prompt turn,
+- editor/file panel shows read/write requests,
+- terminal panel shows terminal-owned requests,
+- target panel shows incoming result routing,
+- command rail shows active stop/cancel state.
 
-- pause queue drain,
-- run next,
-- cancel,
-- retry,
-- send result to panel,
-- open source panel,
-- open target panel,
-- copy sanitized ACP JSON,
-- promote successful request to a macro,
-- replay with edited payload when allowed by permissions.
+Audit remains the source of truth. The ACP Runtime panel is the expanded view of
+the same events.
 
-The panel should also support "follow current panel". In that mode, it filters
-to ACP requests where the focused panel is the source, target, or worker. That
-keeps the queue useful even when the user has many panels open.
+## Interagent orchestration
 
-## Visual behavior
+Real ACP does not define direct agent-to-agent messaging.
 
-ACP should be visible in the workspace before the full panel exists:
-
-- source panels get a small outgoing work badge,
-- target panels get an incoming work badge,
-- worker panels get a running badge,
-- command rail shows short active work chips,
-- Audit remains the source of truth.
-
-The ACP panel is the expanded view of those same events. It should never invent
-a separate story from Audit.
-
-## ACP versus MCP
-
-ACP and MCP should stay separate in the UI model.
-
-ACP answers:
+AIDDE can still support interagent work by acting as the orchestrating client:
 
 ```text
-Who asked whom to do what, for which panel, under which permission and scope?
+session A result or request
+  -> AIDDE Audit + Memory
+  -> user or policy selects session B
+  -> AIDDE sends session/prompt to B
+  -> B streams ACP updates
+  -> result routes back to the selected panel
 ```
 
-MCP answers:
+This makes cross-agent work auditable and keeps panel permissions enforceable.
 
-```text
-Which external tools are connected, healthy, permitted, and callable?
-```
+## MCP boundary
 
-That means ACP belongs to agent routing, queue inspection, cancellation, replay,
-and auditability. MCP belongs to Settings/Integrations, tool health, capability
-inspection, and runtime debugging.
+MCP stays separate.
 
-If AIDDE eventually has an advanced `Runtime` panel, it can include both ACP and
-MCP tabs, but the primitives stay different:
+- ACP is the protocol between AIDDE and an agent.
+- MCP is the tool/data-server protocol an agent can use.
 
-- ACP tab: requests, workers, queues, handoffs.
-- MCP tab: servers, tools, schemas, auth state, health, failures.
+AIDDE passes MCP server configs through ACP session setup. AIDDE's Integrations
+surface owns MCP configuration and health.
 
-## Audit integration
+## Beta 0.1 target
 
-ACP needs compact audit rows:
+The first ACP milestone is not multi-agent autonomy.
 
-- `acpRequestQueued`
-- `acpRequestStarted`
-- `acpRequestCompleted`
-- `acpRequestFailed`
-- `acpWriteAdmitted`
+The first milestone is:
 
-Expanded details should show sanitized request metadata, action, payload summary,
-response summary, and related Recall/Audit ids.
+- one stdio ACP agent process,
+- initialize,
+- session/new,
+- session/prompt,
+- session/update rendering,
+- tool-call rendering,
+- permission request handling,
+- file read/write handlers,
+- terminal handlers,
+- session/cancel,
+- Audit rows for every protocol event.
 
-## Beta 0.1 position
-
-For Beta 0.1, AIDDE should not build a large multi-agent operating system.
-
-The first ACP slice should prove:
-
-- request shape,
-- panel metadata,
-- permission check,
-- Memory/Recall action,
-- Audit visibility,
-- queued vs exchange mode,
-- cancellation/failure visibility.
-
-That is enough to make interagent work real without turning AIDDE into an
-unbounded autonomous runtime.
+After that, AIDDE can add multi-session orchestration.
