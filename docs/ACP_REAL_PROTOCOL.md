@@ -17,12 +17,33 @@ References:
 - https://agentclientprotocol.com/protocol/v1/file-system
 - https://agentclientprotocol.com/protocol/v1/terminals
 - https://agentclientprotocol.com/protocol/v1/transports
+- https://agentclientprotocol.com/get-started/agents
 - https://agentclientprotocol.com/libraries/typescript
+- https://ai-sdk.dev/providers/community-providers/acp
 
 Implementation package:
 
 - `@agentclientprotocol/sdk`
 - observed npm version on 2026-06-29: `1.1.0`
+
+## Compatible agents and SDK bridges
+
+ACP is useful to AIDDE because it already has a bridge ecosystem.
+
+The public ACP agent registry lists agents that can be used with ACP clients,
+including Claude Agent through Zed's SDK adapter and Codex CLI through Zed's
+adapter. The AI SDK community ACP provider also exposes ACP agents such as
+Claude Code, Gemini CLI, and Codex CLI through the AI SDK language-model
+interface.
+
+That means AIDDE should treat Claude, Codex, Gemini, and similar agents as
+pluggable ACP-backed agent sessions. The implementation point is not "one
+provider hardcoded into AIDDE"; it is "one ACP client runtime that can attach to
+many compatible agents and adapters".
+
+This does not mean ACP is direct peer-to-peer messaging between Claude and
+Codex. AIDDE still mediates cross-agent work by creating and routing work across
+multiple ACP sessions.
 
 ## Roles
 
