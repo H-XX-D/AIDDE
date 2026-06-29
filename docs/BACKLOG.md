@@ -163,12 +163,15 @@ Acceptance:
 
 ### 14. MCP integration surface design
 
-Expose MCP as tool capability and integration state, not a default panel.
+Expose MCP as tool capability, integration state, and runtime control.
 
 Acceptance:
 
 - Settings/Integrations shows connected MCP servers and health.
+- MCP Runtime panel shows live servers, tools, resources, calls, failures, and
+  permissions.
+- Users can enable/disable MCP servers and tools.
+- Users can enable/disable MCP access for a panel or ACP session.
 - Panel permissions can allow or deny MCP-backed tools.
 - Audit rows capture MCP tool calls and failures.
-- An optional advanced Runtime/Integrations panel is specified for debugging.
 - MCP and ACP responsibilities are documented as separate.

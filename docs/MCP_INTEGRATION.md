@@ -1,20 +1,30 @@
-# MCP Integration Surface
+# MCP Runtime and Integration Surface
 
-MCP should be supported in AIDDE, but MCP does not need its own default panel.
+MCP should be supported in AIDDE as both configuration and runtime monitoring.
 
 MCP is a tool connector protocol. It tells AIDDE what tools, resources, and
 servers are available to agents and panels. It is not itself the user's work
 surface.
 
-## Where MCP belongs first
+## Product position
 
-For Beta 0.1, MCP belongs in:
+Settings / Integrations owns MCP configuration:
 
-- Settings / Integrations,
-- panel permission menus,
-- command rail tool availability,
-- Audit rows for tool calls,
-- optional developer diagnostics.
+- add/remove servers,
+- credentials and environment binding,
+- startup mode,
+- trusted workspace rules,
+- default policy.
+
+The MCP panel owns live runtime control:
+
+- monitor server health,
+- monitor tools/resources/prompts exposed by each server,
+- enable or disable a server,
+- enable or disable a tool,
+- enable or disable MCP access for a panel/session,
+- inspect last calls and failures,
+- see which agent/panel used which MCP capability.
 
 ## What MCP should expose
 
@@ -24,41 +34,113 @@ AIDDE should show:
 - available tools,
 - tool permissions,
 - health/status,
+- enabled/disabled state,
+- startup state,
 - last call time,
 - last error,
 - which panels/agents can use each server,
 - whether a tool is read-only, write-capable, networked, or sensitive.
 
-## Does MCP need its own panel?
+## MCP Runtime panel
 
-Not by default.
+MCP needs an operational panel for the same reason ACP does: users need to see
+and control live protocol surfaces while agents are running.
 
-MCP should become an optional `Integrations` or `Runtime Inspector` panel for
-advanced users and developers. That panel is useful when debugging tools,
-permissions, or connector failures.
+The panel should be named `MCP Runtime` or `Tool Runtime`.
 
-Default users should experience MCP as capability:
+It should group state by:
 
-```text
-this panel can use Recall
-this agent can call GitHub
-this command can run Playwright
-this tool call was audited
-```
+- Servers
+- Tools
+- Resources
+- Prompts
+- Sessions
+- Calls
+- Failures
+- Permissions
 
-They should not need to understand MCP just to use AIDDE.
+Each server row should show:
+
+- server name,
+- transport,
+- status,
+- enabled/disabled,
+- connected sessions,
+- exposed tools/resources/prompts,
+- last call,
+- last error,
+- trust level.
+
+Each tool row should show:
+
+- tool name,
+- server,
+- read/write/network/sensitive tags,
+- enabled/disabled,
+- allowed panels/sessions,
+- last caller,
+- last result status,
+- related Audit row.
+
+The panel needs direct controls:
+
+- start server,
+- stop server,
+- restart server,
+- enable/disable server,
+- enable/disable tool,
+- allow/deny for current panel,
+- allow/deny for selected agent session,
+- quarantine server after failure,
+- open sanitized call trace,
+- copy sanitized schema or call JSON.
+
+Toggles should be fast and visible. If a server or tool is disabled while an
+agent is running, future calls fail cleanly through policy and create an Audit
+row. Active calls should either complete, be cancelled, or require explicit
+confirmation depending on risk.
+
+## Panel badges and command rail
+
+MCP state should also appear where the user is already looking:
+
+- panel title badges show MCP enabled/disabled for that panel,
+- agent panels show connected MCP server count,
+- command rail shows blocked/unavailable tool chips,
+- Audit shows every MCP call and failure,
+- ACP Runtime peer edges can show MCP-backed tool use.
+
+The full MCP Runtime panel is the expanded view of those same events.
+
+## Runtime policy
+
+MCP enable/disable is scoped.
+
+AIDDE should support toggles at:
+
+- global server level,
+- workspace level,
+- panel level,
+- ACP session level,
+- individual tool level.
+
+The effective policy should be visible before a call runs. A disabled tool
+should be visibly disabled in the command rail and should not appear as callable
+to agents unless the agent needs to see a policy-denied capability for
+explanation/debugging.
 
 ## Difference from ACP
 
 ACP and MCP solve different problems:
 
 - MCP answers: what tools can an agent call?
-- ACP answers: what bounded work did one agent ask another agent or manager to
-  do?
+- ACP answers: which agent/session is doing work, streaming updates, requesting
+  permissions, or handing work to another session?
 
 MCP is capability discovery and tool invocation.
 
-ACP is work coordination, queueing, handoff, and status.
+ACP is client/agent runtime, prompt turns, permissions, tool-call status,
+session cancellation, and supervised peer edges.
 
 Both must be visible in Audit. Neither should bypass panel permissions.
 
@@ -68,16 +150,22 @@ The first MCP slice should prove:
 
 - tool/server registry,
 - health/status,
+- enable/disable server controls,
+- enable/disable tool controls,
 - per-panel permission binding,
 - audit rows for MCP calls,
-- settings/integrations UI.
+- settings/integrations UI,
+- MCP Runtime panel.
 
 The first ACP slice should prove:
 
-- source/target request metadata,
-- exchange/queue/handoff modes,
-- audit lifecycle,
-- cancellation/failure visibility.
+- real ACP session lifecycle,
+- streamed update rendering,
+- supervised peer graph,
+- cancellation/failure visibility,
+- audit lifecycle.
 
-Keep these separate. Do not turn AIDDE into a protocol dashboard by default.
+Keep these separate, but let them sit side-by-side in the Runtime view:
 
+- ACP Runtime: who is working and how agent sessions are connected.
+- MCP Runtime: what tools/resources are available, enabled, called, or blocked.

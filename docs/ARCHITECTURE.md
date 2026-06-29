@@ -101,6 +101,7 @@ cancel remains observable. See [ACP_REAL_PROTOCOL.md](ACP_REAL_PROTOCOL.md) and
 
 ## MCP integrations
 
-AIDDE should support MCP as an integration/tool capability surface. MCP does not
-need a default workspace panel; it belongs first in Settings/Integrations,
-permissions, and Audit. See [MCP_INTEGRATION.md](MCP_INTEGRATION.md).
+AIDDE should support MCP as both an integration/tool capability surface and a
+live runtime monitor. Settings owns server configuration; the MCP Runtime panel
+owns live health, calls, failures, and enable/disable controls for servers,
+tools, panels, and sessions. See [MCP_INTEGRATION.md](MCP_INTEGRATION.md).
