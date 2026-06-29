@@ -134,6 +134,10 @@ explanation/debugging.
 MCP Runtime needs import/export for server setups, tool policy, and debugging.
 Use the shared rules in [RUNTIME_IMPORT_EXPORT.md](RUNTIME_IMPORT_EXPORT.md).
 
+MCP import should also discover MCP configuration from desktop apps and CLIs the
+user already has installed. Examples include agent apps, editors, IDEs, and CLIs
+that store MCP server definitions in app support or project config files.
+
 MCP export should include:
 
 - server definitions,
@@ -159,6 +163,8 @@ MCP export must not include:
 MCP import should support:
 
 - importing servers disabled by default,
+- importing from detected desktop app profiles,
+- mapping source app config paths to AIDDE server definitions,
 - unresolved secret placeholders,
 - dry-run schema diff,
 - tool allow-deny policy preview,

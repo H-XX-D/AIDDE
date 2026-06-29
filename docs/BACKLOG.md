@@ -160,6 +160,8 @@ Acceptance:
 - ACP Runtime includes a peer graph view for session-to-session edges.
 - ACP Runtime supports import/export of agent profiles, session templates, peer
   graph templates, sanitized traces, and permission policy.
+- ACP Runtime can discover/import agent profiles from installed desktop apps and
+  CLIs as disabled candidates.
 - ACP and MCP are documented as different primitives: client/agent protocol
   versus tool/data-server protocol.
 
@@ -176,6 +178,8 @@ Acceptance:
 - Users can enable/disable MCP access for a panel or ACP session.
 - MCP Runtime supports import/export of server definitions, tool schemas,
   allow-deny policy, health snapshots, and sanitized call traces.
+- MCP Runtime can discover/import MCP server definitions from installed desktop
+  apps and CLIs as disabled candidates.
 - Panel permissions can allow or deny MCP-backed tools.
 - Audit rows capture MCP tool calls and failures.
 - MCP and ACP responsibilities are documented as separate.
@@ -193,6 +197,9 @@ Acceptance:
   session, and per prompt.
 - Skills Runtime supports import/export of skill packs, skill policy, pins,
   hashes, and activation traces.
+- Skills Runtime can discover/import skill directories and instruction packs
+  from installed desktop apps, CLIs, and editor extensions as untrusted
+  candidates.
 - Command rail shows active/suggested skill chips before send.
 - Skill activation traces explain why a skill matched and which instruction
   files were read.
@@ -210,6 +217,8 @@ Acceptance:
   runtime surfaces, hashes, and compatibility notes.
 - Import supports dry-run, diff preview, conflict detection, scoped target,
   disabled-by-default mode, rollback, and Audit rows.
+- Import supports desktop-app discovery adapters with source paths, confidence,
+  redaction rules, and secret remapping.
 - Raw secrets are never exported.
 - ACP, MCP, and Skills each define their own exportable payloads and forbidden
   payloads.

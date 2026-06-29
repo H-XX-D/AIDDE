@@ -120,4 +120,6 @@ conflicts, and Audit links. See [SKILLS_RUNTIME.md](SKILLS_RUNTIME.md).
 ACP Runtime, MCP Runtime, and Skills Runtime all need import/export. Shared
 rules live in [RUNTIME_IMPORT_EXPORT.md](RUNTIME_IMPORT_EXPORT.md): dry runs,
 diff preview, scoped imports, conflict detection, redaction, no raw secrets,
-rollback, and Audit rows.
+rollback, and Audit rows. Import also needs desktop-app discovery adapters so
+AIDDE can pull existing ACP/MCP/Skills config from installed apps and CLIs
+instead of forcing users to rebuild their setup manually.

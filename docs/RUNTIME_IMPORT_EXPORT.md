@@ -32,6 +32,52 @@ Every runtime import should support:
 - rollback entry,
 - Audit row.
 
+## Desktop app discovery
+
+Import should not only mean "open an AIDDE export bundle."
+
+AIDDE should discover and import runtime configuration from installed desktop
+apps and CLIs the user already uses. This makes AIDDE a control surface over the
+existing agent/tool ecosystem instead of forcing users to rebuild everything by
+hand.
+
+Discovery sources should include, when present:
+
+- app support directories,
+- user config directories,
+- project-local config files,
+- command-line config,
+- extension/plugin manifests,
+- MCP server config files,
+- skill directories,
+- agent adapter profiles,
+- OS keychain/secure-store references.
+
+Desktop app imports must be adapter-based. Each adapter should describe:
+
+- app name,
+- supported versions,
+- config search paths,
+- files it can read,
+- fields it can extract,
+- fields it must redact,
+- how secrets are referenced,
+- confidence of each detected item,
+- whether the source is global, workspace, or project-local.
+
+The import UI should show:
+
+- source app,
+- discovered items,
+- source path,
+- confidence,
+- conflicts,
+- secrets requiring remap,
+- what will be enabled or disabled,
+- what will be copied versus referenced.
+
+Imports from desktop apps should default to disabled/untrusted until reviewed.
+
 ## Secrets
 
 No runtime export should contain raw secrets.
@@ -58,6 +104,7 @@ Import/export should support these scopes:
 - MCP server,
 - MCP tool,
 - skill,
+- desktop app profile,
 - prompt/turn trace.
 
 ## Bundle shape
@@ -94,6 +141,7 @@ Default behavior:
 - imported MCP servers are disabled until reviewed,
 - imported skills are untrusted until reviewed,
 - imported ACP peer graphs are templates until launched,
+- imported desktop app profiles are disabled until reviewed,
 - imported traces are read-only,
 - imported policies require explicit apply.
 

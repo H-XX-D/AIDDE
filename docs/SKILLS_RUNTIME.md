@@ -148,6 +148,11 @@ Skills Runtime needs import/export for skill packs, workspace policy, and
 activation evidence. Use the shared rules in
 [RUNTIME_IMPORT_EXPORT.md](RUNTIME_IMPORT_EXPORT.md).
 
+Skills import should also discover skill directories and instruction packs from
+desktop agent apps, CLIs, and editor extensions already installed on the user's
+machine. AIDDE should normalize them into its Skills Runtime registry instead of
+requiring users to recreate them manually.
+
 Skills export should include:
 
 - skill manifests,
@@ -172,6 +177,8 @@ Skills export must not include:
 Skills import should support:
 
 - importing as untrusted by default,
+- importing from detected desktop app profiles,
+- copying a skill pack or referencing its original source path,
 - inspecting `SKILL.md` before enable,
 - hash/conflict detection,
 - policy diff preview,

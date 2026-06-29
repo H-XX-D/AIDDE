@@ -182,6 +182,10 @@ back to AIDDE before they are considered trusted.
 ACP Runtime needs import/export for reproducible agent setups and peer graphs.
 Use the shared rules in [RUNTIME_IMPORT_EXPORT.md](RUNTIME_IMPORT_EXPORT.md).
 
+ACP import should also discover agent profiles and adapters from desktop apps
+and CLIs already installed on the user's machine. AIDDE should use those as
+candidate ACP-backed sessions while preserving user review and policy gates.
+
 ACP export should include:
 
 - agent adapter profiles,
@@ -206,6 +210,7 @@ ACP export must not include:
 ACP import should support:
 
 - dry-run compatibility checks,
+- importing from detected desktop app profiles,
 - importing agent profiles as disabled,
 - importing peer graphs as templates,
 - importing traces as read-only evidence,
