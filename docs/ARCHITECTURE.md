@@ -35,7 +35,8 @@ This is a public rewrite direction, not a frozen implementation.
    - Memory panel for day-to-day context,
    - Recall panel for substrate inspection,
    - MAL handles for stable references,
-   - memory-in-use display.
+   - memory-in-use display,
+   - MAL netlist reader contract for replay/verify flows.
 
 6. Observability layer
    - Audit panel,
@@ -79,3 +80,5 @@ This split matters:
 - MAL handles connect the two without forcing every user to inspect raw graph
   details.
 
+The Recall panel's MAL reader is intentionally narrow. See
+[RECALL_PANEL_MAL_READER.md](RECALL_PANEL_MAL_READER.md).

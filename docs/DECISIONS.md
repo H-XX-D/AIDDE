@@ -53,3 +53,15 @@ Reason:
 - companion behavior is core to the product identity,
 - rewards and physical collectibles make learning and usage tangible.
 
+## 0006: Recall panel MAL reader does not extend the language
+
+The Recall panel may load, replay, and verify MAL netlists, but it implements the
+grammar already decided in `/Users/hendrixx./Recallv.5/docs/design/mal-language.md`.
+It does not add a second AIDDE-specific MAL dialect.
+
+Reason:
+
+- MAL remains the memory abstraction layer, not a panel-specific feature blob,
+- the reader can stay small and debuggable,
+- all writes still route through `admit()`,
+- replay/verify round-trip tests give a real correctness property.

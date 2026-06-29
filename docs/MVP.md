@@ -40,7 +40,8 @@ takes, and keep the work organized in panels that can be targeted.
 5. Memory v0
    - candidate context appears before send,
    - actual memory used appears during/after the turn,
-   - Recall remains substrate inspection, Memory is the working UX.
+   - Recall remains substrate inspection, Memory is the working UX,
+   - MAL netlist replay/verify uses the frozen reader contract.
 
 6. Audit v0
    - model actions are logged without chat prose,
@@ -92,4 +93,3 @@ These can come later. The first beta should make the core shape undeniable.
 - At least one learning mission is useful without leaving the app.
 - At least one cosmetic unlock can be earned.
 - The file explorer can communicate "changed and good," "warning," and "broken."
-

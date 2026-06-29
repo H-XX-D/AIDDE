@@ -51,6 +51,9 @@ Acceptance:
 - Recall shows compile/search/show/write/stats controls.
 - The two panels can be placed independently.
 - The app copy does not imply Recall panel equals the memory system.
+- Recall panel MAL loading follows
+  [RECALL_PANEL_MAL_READER.md](RECALL_PANEL_MAL_READER.md) instead of inventing a
+  second grammar.
 
 ### 5. Build Audit v0 operational ledger
 
@@ -140,4 +143,3 @@ Acceptance:
 - Shows current mission, constraints, and next action.
 - Does not duplicate chat prose.
 - Can reference Memory/Audit/Panel targets.
-

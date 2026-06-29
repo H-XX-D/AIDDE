@@ -37,6 +37,8 @@ The first focused target is [Beta 0.1](docs/MVP.md).
 - Show actual pulled memory during the turn.
 - Allow stop/edit/replay of preflight keyword sets before the prompt is sent.
 - Integrate MAL handles so memory and panel transitions have stable references.
+- Keep MAL netlist loading narrow: the Recall panel reader implements the frozen
+  grammar contract and verifies `render -> parse -> load -> render` round trips.
 
 ## Phase 4: audit and observability
 
